@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+</head>
+<body>
+<h1>Photo Gallery</h1>
+
+<div>
+    <ul>
+        <th:block th:each="photo : ${photos}">
+            <li>
+                <img th:src="@{${photo.url}}" alt="Photo" width="200">
+                <p th:text="'Email: ' + ${photo.email}"></p> <!-- Показать email -->
+            </li>
+        </th:block>
+    </ul>
+</div>
+
+<!-- Кнопка для отправки email -->
+<div style="margin-top: 20px;">
+    <button onclick="window.location.href='/sendEmails'">Отправить всем email</button>
+</div>
+
+<!-- Пагинация -->
+<div style="margin-top: 20px;">
+    <button th:if="${currentPage > 0}" th:onclick="|window.location.href='/photos?page=${prevPage}&size=10'|">Предыдущая</button>
+    <button th:if="${currentPage < totalPages - 1}" th:onclick="|window.location.href='/photos?page=${nextPage}&size=10'|">Следующая</button>
+</div>
+
+<p>Страница <span th:text="${currentPage + 1}"></span> из <span th:text="${totalPages}"></span></p>
+</body>
+</html>
